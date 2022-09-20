@@ -18,7 +18,8 @@ async function digestForImage(image, os, arch, variant) {
         cmd += ' --override-variant=' + variant;
     }
 
-    cmd += " inspect --no-tags --format '{{.Digest}}' "
+    // TODO add --no-tags when the option is available in the runner
+    cmd += " inspect --format '{{.Digest}}' "
     cmd += 'docker://' + image
 
     console.debug('Using skopeo command: ' + cmd)

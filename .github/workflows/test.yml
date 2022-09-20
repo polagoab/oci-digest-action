@@ -21,7 +21,7 @@ jobs:
         image: ubuntu:latest
     - name: Digest via skopeo
       id: skopeo_digest
-      run: echo "::set-output name=digest::$(skopeo inspect --no-tags --format '{{.Digest}}' docker://ubuntu:latest 2>/dev/null  || true)"
+      run: echo "::set-output name=digest::$(skopeo inspect --format '{{.Digest}}' docker://ubuntu:latest 2>/dev/null  || true)"
     - name: Verify digest
       if: ${{ steps.digest.outputs.digest != steps.skopeo_digest.outputs.digest }}
       run: echo "Digest differ" && exit 1
