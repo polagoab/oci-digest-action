@@ -1,0 +1,53 @@
+'use strict';
+
+const core = require('@actions/core');
+const github = require('@actions/github');
+const util = require('node:util');
+const exec = util.promisify(require('child_process').exec);
+
+async function digestForImage(image, os, arch, variant) {
+    let cmd = 'skopeo'
+    if (os) {
+        cmd += ' --override-os=' + os;
+    }
+    if (arch) {
+        cmd += ' --override-arch=' + arch;
+    }
+
+    if (variant) {
+        cmd += ' --override-variant=' + variant;
+    }
+
+    cmd += " inspect --no-tags --format '{{.Digest}}' "
+    cmd += 'docker://' + image
+
+    console.debug('Using skopeo command: ' + cmd)
+
+    const { stdout, stderr } = await exec(cmd)
+
+    if (stderr && stderr.length > 0) {
+        console.log(`stderr: ${stderr}`)
+    }
+
+    console.debug(`skopeo result: ${stdout}`)
+
+    return stdout.trim()
+}
+
+async function action(image, os, arch, variant) {
+    const digest = await digestForImage(image, os, arch, variant)
+    core.setOutput('digest', digest)
+}
+
+async function runAction() {
+    try {
+        const image = core.getInput('image');
+        const os = core.getInput('os');
+        const arch = core.getInput('arch');
+        const variant = core.getInput('variant');
+        await action(image, os, arch, variant)
+    } catch (error) {
+        core.setFailed(error.message);
+    }
+}
+module.exports = runAction

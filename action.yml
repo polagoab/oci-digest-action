@@ -1,0 +1,22 @@
+name: 'oci-digest-action'
+description: 'Github Action to retrieve OCI image digests from a container registry",
+  "main": "dist/index.js",'
+inputs:
+  image:
+    description: 'The image to fetch the image for'
+    required: true
+  os:
+    description: 'The OS to use instead of the running OS for choosing images'
+    required: false
+  arch:
+    description: 'The ARCH to use instead of the architecture of the machine for choosing images'
+    required: false
+  variant:
+    description: 'The VARIANT to use instead of the running architecture variant for choosing images'
+    required: false
+outputs:
+  digest: # id of output
+    description: 'The digest of the given image'
+runs:
+  using: 'node16'
+  main: 'index.js'

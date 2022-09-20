@@ -1,0 +1,27 @@
+# Test this github action
+
+name: Test
+
+on:
+  pull_request:
+  push:
+    
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Digest via action
+      id: digest
+      uses: polagoab/oci-digest-action
+      with:
+        image: ubuntu:latest
+    - name: Digest via skopeo
+      id: skopeo_digest
+      run: echo "::set-output name=digest::$(skopeo inspect --no-tags --format '{{.Digest}}' docker://ubuntu:latest 2>/dev/null  || true)"
+    - name: Verify digest
+      if: ${{ steps.digest.outputs.digest != steps.skopeo_digest.outputs.digest }}
+      run: echo "Digest differ" && exit 1
