@@ -16,7 +16,7 @@ jobs:
       uses: actions/checkout@v3
     - name: Digest via action
       id: digest
-      uses: polagoab/oci-digest-action@main
+      uses: polagoab/oci-digest-action@{{ github.ref }}
       with:
         image: ubuntu:latest
     - name: Digest via skopeo
