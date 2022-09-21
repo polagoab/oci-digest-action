@@ -26,6 +26,20 @@ describe(`Index single image tests`, () => {
         expect(result.commands.outputs.digest).toBe(digest)
     })
 
+    test("Single non-existing image", async () => {
+        const target = RunTarget.asyncFn(runAction);
+        const options = RunOptions.create()
+            .setInputs({ image: 'unknown-image:latest' })
+
+        child_process.exec.mockImplementation((command, callback) => {
+            callback({ code: 1 }, { stdout: '' });
+        });
+
+        const result = await target.run(options)
+
+        expect(!result.isSuccess)
+    })
+
     test("Single image with os input", async () => {
         const target = RunTarget.asyncFn(runAction);
         const options = RunOptions.create()
