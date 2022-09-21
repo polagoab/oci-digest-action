@@ -1,5 +1,8 @@
 # Oci-digest-action
-Github Action to retrieve OCI image digests from a container registry
+Github Action to retrieve OCI image digests from a container registry. This actions is currently using
+[Skopeo](https://github.com/containers/skopeo) for retrieving the digest and assume that the runnning actor
+is authenticated against the registry. One way to authenticate is 
+[docker/login-action](https://github.com/docker/login-action).
 
 ## Inputs
 
