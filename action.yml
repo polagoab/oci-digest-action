@@ -1,5 +1,5 @@
 name: 'oci-digest-action'
-description: 'Github Action to retrieve OCI image digests from a container registry'
+description: 'Github Action that retrieve OCI image digests from a container registry'
 inputs:
   image:
     description: 'The image to fetch the image for'
