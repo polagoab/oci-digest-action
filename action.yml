@@ -15,7 +15,7 @@ inputs:
     required: false
 outputs:
   digest: # id of output
-    description: 'The digest of the given image'
+    description: 'The digest of the given image, if the image exists'
 runs:
   using: 'node16'
   main: 'dist/index.js'

@@ -26,7 +26,7 @@ The VARIANT to use instead of the running architecture variant for choosing imag
 
 ### `digest`
 
-The digest for the given image.
+The digest for the given image, if the image exists.
 
 ## Example usage for a single image
 

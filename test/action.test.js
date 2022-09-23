@@ -32,12 +32,16 @@ describe(`Index single image tests`, () => {
             .setInputs({ image: 'unknown-image:latest' })
 
         child_process.exec.mockImplementation((command, callback) => {
-            callback({ code: 1 }, { stdout: '' });
+            const e = new Error()
+            e.code = 1
+            e.message = 'Image not found'
+            callback(e, { stdout: '' });
         });
 
         const result = await target.run(options)
 
-        expect(!result.isSuccess)
+        expect(result.isSuccess)
+        expect(result.commands.outputs.digest).toBeUndefined()
     })
 
     test("Single image with os input", async () => {
