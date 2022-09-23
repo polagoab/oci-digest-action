@@ -25,7 +25,7 @@ async function digestForImage(image, os, arch, variant) {
     console.debug('Using skopeo command: ' + cmd)
 
     try {
-        const {stdout, stderr} = await exec(cmd)
+        const { stdout, stderr } = await exec(cmd)
         console.debug(`skopeo result: ${stdout}`)
         return stdout.trim()
     } catch (e) {
