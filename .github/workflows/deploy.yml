@@ -1,12 +1,12 @@
-# Test this github action
+# Build this github action
 
-name: Test
+name: Build and deploy distribution
 
 on:
   push:
     branches:
       - main
-    
+  workflow_dispatch:
 
 jobs:
   build:
@@ -15,6 +15,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+    - name: Install
+      run: npm ci
+    - name: Test
+      run: npm run-script test
+    - name: Build distribution
+      run: npm run-script build
     - name: Digest via action
       id: digest
       uses: ./
@@ -26,3 +32,7 @@ jobs:
     - name: Verify digest
       if: ${{ steps.digest.outputs.digest != steps.skopeo_digest.outputs.digest }}
       run: echo "Digest differ" && exit 1
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        repository: ./dist
+        commit_message: Update distribution dir
