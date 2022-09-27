@@ -1,4 +1,4 @@
-# Build this github action
+# Build and deploy this github action
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow
 
 name: Build and deploy distribution
@@ -14,26 +14,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Install
-      run: npm ci
-    - name: Test
-      run: npm run-script test
-    - name: Build distribution
-      run: npm run-script build
-    - name: Digest via action
-      id: digest
-      uses: ./
-      with:
-        image: ubuntu:latest
-    - name: Digest via skopeo
-      id: skopeo_digest
-      run: echo "::set-output name=digest::$(skopeo inspect --format '{{.Digest}}' docker://ubuntu:latest 2>/dev/null  || true)"
-    - name: Verify digest
-      if: ${{ steps.digest.outputs.digest != steps.skopeo_digest.outputs.digest }}
-      run: echo "Digest differ" && exit 1
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        repository: ./dist
-        commit_message: Update distribution dir
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install
+        run: npm ci
+      - name: Test
+        run: npm run-script test
+      - name: Build distribution
+        run: npm run-script build
+      - name: Digest via action
+        id: digest
+        uses: ./
+        with:
+          image: ubuntu:latest
+      - name: Digest via skopeo
+        id: skopeo_digest
+        run: echo "::set-output name=digest::$(skopeo inspect --format '{{.Digest}}' docker://ubuntu:latest 2>/dev/null  || true)"
+      - name: Verify digest
+        if: ${{ steps.digest.outputs.digest != steps.skopeo_digest.outputs.digest }}
+        run: echo "Digest differ" && exit 1
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          repository: ./dist
+          commit_message: Update distribution dir
