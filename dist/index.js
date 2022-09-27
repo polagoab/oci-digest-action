@@ -9491,6 +9491,22 @@ function wrappy (fn, cb) {
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
+/*
+ * Copyright 2022 Polago AB.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 
 
 const core = __nccwpck_require__(2186);
@@ -9517,15 +9533,14 @@ async function digestForImage(image, os, arch, variant) {
 
     console.debug('Using skopeo command: ' + cmd)
 
-    const { stdout, stderr } = await exec(cmd)
-
-    if (stderr && stderr.length > 0) {
-        console.log(`stderr: ${stderr}`)
+    try {
+        const { stdout, stderr } = await exec(cmd)
+        console.debug(`skopeo result: ${stdout}`)
+        return stdout.trim()
+    } catch (e) {
+        console.log(`stderr: ${e.message}`)
+        return ''
     }
-
-    console.debug(`skopeo result: ${stdout}`)
-
-    return stdout.trim()
 }
 
 async function action(image, os, arch, variant) {
@@ -9743,6 +9758,22 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
 "use strict";
+/*
+ * Copyright 2022 Polago AB.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 
 
 const action = __nccwpck_require__(3348)
