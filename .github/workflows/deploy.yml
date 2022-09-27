@@ -1,4 +1,5 @@
 # Build this github action
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow
 
 name: Build and deploy distribution
 
