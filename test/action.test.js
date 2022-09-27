@@ -39,7 +39,7 @@ describe(`Index single image tests`, () => {
 
         const result = await target.run(options)
 
-        expect(result.isSuccess)
+        expect(result.isSuccess).toBeTruthy()
         expect(result.commands.outputs.digest).toBe(digest)
     })
 
@@ -57,7 +57,7 @@ describe(`Index single image tests`, () => {
 
         const result = await target.run(options)
 
-        expect(result.isSuccess)
+        expect(result.isSuccess).toBeTruthy()
         expect(result.commands.outputs.digest).toBeUndefined()
     })
 
@@ -73,7 +73,7 @@ describe(`Index single image tests`, () => {
 
         const result = await target.run(options)
 
-        expect(result.isSuccess)
+        expect(result.isSuccess).toBeTruthy()
         expect(result.commands.outputs.digest).toBe(digest)
     })
 
@@ -89,7 +89,7 @@ describe(`Index single image tests`, () => {
 
         const result = await target.run(options)
 
-        expect(result.isSuccess)
+        expect(result.isSuccess).toBeTruthy()
         expect(result.commands.outputs.digest).toBe(digest)
     })
 
@@ -105,7 +105,7 @@ describe(`Index single image tests`, () => {
 
         const result = await target.run(options)
 
-        expect(result.isSuccess)
+        expect(result.isSuccess).toBeTruthy()
         expect(result.commands.outputs.digest).toBe(digest)
     })
 
