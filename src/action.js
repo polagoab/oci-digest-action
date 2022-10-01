@@ -38,20 +38,25 @@ async function digestForImage(image, os, arch, variant) {
     cmd += " inspect --format '{{.Digest}}' "
     cmd += 'docker://' + image
 
-    console.debug('Using skopeo command: ' + cmd)
+    core.debug('Using skopeo command: ' + cmd)
 
     try {
         const { stdout, stderr } = await exec(cmd)
-        console.debug(`skopeo result: ${stdout}`)
+        core.debug(`skopeo result: ${stdout}`)
         return stdout.trim()
     } catch (e) {
-        console.log(`stderr: ${e.message}`)
+        core.debug(`stderr: ${e.message}`)
         return ''
     }
 }
 
 async function action(image, os, arch, variant) {
     const digest = await digestForImage(image, os, arch, variant)
+    if (digest) {
+        core.info('Digest for ' + image + ' is: ' + digest)
+    } else {
+        core.info('No digest exists for image: ' + image)
+    }
     core.setOutput('digest', digest)
 }
 
