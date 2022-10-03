@@ -8,7 +8,7 @@ is authenticated against the registry. One way to authenticate is
 
 ### `image`
 
-**Required** The image to retreive the digest for.
+**Required** The image to retrieve the digest for.
 
 ### `os`
 
