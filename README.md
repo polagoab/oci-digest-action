@@ -28,6 +28,11 @@ The VARIANT to use instead of the running architecture variant for choosing imag
 
 The digest for the given image, if the image exists.
 
+### `image`
+
+The given input image. This output is for convenience when using the 
+[polagoab/oci-revision-tagger-action](https://github.com/polagoab/oci-revision-tagger-action).
+
 ## Example usage for a single image
 
 ```

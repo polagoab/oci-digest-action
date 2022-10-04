@@ -58,6 +58,7 @@ async function action(image, os, arch, variant) {
         core.info('No digest exists for image: ' + image)
     }
     core.setOutput('digest', digest)
+    core.setOutput('image', image)
 }
 
 async function runAction() {

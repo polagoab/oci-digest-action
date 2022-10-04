@@ -41,6 +41,7 @@ describe(`Index single image tests`, () => {
 
         expect(result.isSuccess).toBeTruthy()
         expect(result.commands.outputs.digest).toBe(digest)
+        expect(result.commands.outputs.image).toBe(image)
     })
 
     test("Single non-existing image", async () => {
@@ -59,6 +60,7 @@ describe(`Index single image tests`, () => {
 
         expect(result.isSuccess).toBeTruthy()
         expect(result.commands.outputs.digest).toBeUndefined()
+        expect(result.commands.outputs.image).toBe(image)
     })
 
     test("Single image with os input", async () => {
@@ -75,6 +77,7 @@ describe(`Index single image tests`, () => {
 
         expect(result.isSuccess).toBeTruthy()
         expect(result.commands.outputs.digest).toBe(digest)
+        expect(result.commands.outputs.image).toBe(image)
     })
 
     test("Single image with arch input", async () => {
@@ -91,6 +94,7 @@ describe(`Index single image tests`, () => {
 
         expect(result.isSuccess).toBeTruthy()
         expect(result.commands.outputs.digest).toBe(digest)
+        expect(result.commands.outputs.image).toBe(image)
     })
 
     test("Single image with variant input", async () => {
@@ -107,6 +111,7 @@ describe(`Index single image tests`, () => {
 
         expect(result.isSuccess).toBeTruthy()
         expect(result.commands.outputs.digest).toBe(digest)
+        expect(result.commands.outputs.image).toBe(image)
     })
 
 })
