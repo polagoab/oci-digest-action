@@ -50,7 +50,7 @@ async function digestForImage(image, os, arch, variant) {
     }
 }
 
-async function action(image, os, arch, variant) {
+async function processSingleImage(image, os, arch, variant) {
     const digest = await digestForImage(image, os, arch, variant)
     if (digest) {
         core.info('Digest for ' + image + ' is: ' + digest)
@@ -61,15 +61,35 @@ async function action(image, os, arch, variant) {
     core.setOutput('image', image)
 }
 
-async function runAction() {
+async function processMultipleImages(images, os, arch, variant) {
+    await Promise.all(images.map(async image => {
+        return digestForImage(image, os, arch, variant)
+    })).then(result => {
+        core.setOutput('digest', JSON.stringify(result))
+        core.setOutput('image', JSON.stringify(images))
+    })
+}
+
+async function action() {
     try {
-        const image = core.getInput('image');
+        let image = core.getInput('image')
         const os = core.getInput('os');
         const arch = core.getInput('arch');
         const variant = core.getInput('variant');
-        await action(image, os, arch, variant)
+
+        try {
+            image = JSON.parse(image)
+        } catch (error) {
+
+        }
+
+        if (Array.isArray(image)) {
+            await processMultipleImages(image, os, arch, variant)
+        } else {
+            await processSingleImage(image, os, arch, variant)
+        }
     } catch (error) {
         core.setFailed(error.message);
     }
 }
-module.exports = runAction
+module.exports = action

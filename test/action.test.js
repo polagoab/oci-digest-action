@@ -23,7 +23,7 @@ jest.mock("child_process")
 
 const runAction = require('../src/action');
 
-describe(`Index single image tests`, () => {
+describe(`Single image tests`, () => {
     const digest = 'sha256:42'
     const image = 'unknown-image:1.0.0'
 
@@ -114,4 +114,41 @@ describe(`Index single image tests`, () => {
         expect(result.commands.outputs.image).toBe(image)
     })
 
+})
+
+describe(`Multiple images tests`, () => {
+    const digest1 = 'sha256:42'
+    const image1 = 'unknown-image:1.0.0'
+
+    const digest2 = 'sha256:43'
+    const image2 = 'another-unknown-image:2.0.0'
+
+    test("Multiple images", async () => {
+        const target = RunTarget.asyncFn(runAction);
+        const options = RunOptions.create()
+            .setInputs({ image: JSON.stringify([image1, image2]) })
+
+        child_process.exec.mockImplementation((command, callback) => {
+            if (command.includes(image1)) {
+                callback(null, { stdout: digest1 });
+            } else if (command.includes(image2)) {
+                callback(null, { stdout: digest2 });
+            } else {
+                throw new Error('Unrecognized exec call: ' + command)
+            }
+
+        });
+
+        const result = await target.run(options)
+
+        expect(result.isSuccess).toBeTruthy()
+        const digests = JSON.parse(result.commands.outputs.digest)
+        expect(digests.length).toBe(2)
+        expect(digests[0]).toBe(digest1)
+        expect(digests[1]).toBe(digest2)
+        const images = JSON.parse(result.commands.outputs.image)
+        expect(images.length).toBe(2)
+        expect(images[0]).toBe(image1)
+        expect(images[1]).toBe(image2)
+    })
 })

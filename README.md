@@ -8,7 +8,7 @@ is authenticated against the registry. One way to authenticate is
 
 ### `image`
 
-**Required** The image to retrieve the digest for.
+**Required** The image to retrieve the digest for. If this input parameter is an array of images, all images will be processed
 
 ### `os`
 
@@ -26,11 +26,11 @@ The VARIANT to use instead of the running architecture variant for choosing imag
 
 ### `digest`
 
-The digest for the given image, if the image exists.
+The digest for the given image, if the image exists. When the input image is an array, the digest will also be an array where each element matches the corresponding image entry.
 
 ### `image`
 
-The given input image. This output is for convenience when using the 
+The given input image (or array of images). This output is for convenience when using the 
 [polagoab/oci-revision-tagger-action](https://github.com/polagoab/oci-revision-tagger-action).
 
 ## Example usage for a single image
