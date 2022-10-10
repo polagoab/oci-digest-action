@@ -80,7 +80,7 @@ async function action() {
         try {
             image = JSON.parse(image)
         } catch (error) {
-
+            core.debug('Unable to parse image as JSON: ' + error.message)
         }
 
         if (Array.isArray(image)) {
