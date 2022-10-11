@@ -40,3 +40,15 @@ uses: polagoab/oci-digest-action@v1
 with:
   image: 'ubuntu:latest'
 ```
+
+## Example usage for multiple images
+
+```
+uses: polagoab/oci-digest-action@v1
+with:
+  image: >-
+    [
+      "ubuntu:latest",
+      "debian:latest"
+    ]
+```
