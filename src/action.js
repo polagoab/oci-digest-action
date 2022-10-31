@@ -54,10 +54,10 @@ async function processSingleImage(image, os, arch, variant) {
     const digest = await digestForImage(image, os, arch, variant)
     if (digest) {
         core.info('Digest for ' + image + ' is: ' + digest)
+        core.setOutput('digest', digest)
     } else {
         core.info('No digest exists for image: ' + image)
     }
-    core.setOutput('digest', digest)
     core.setOutput('image', image)
 }
 
