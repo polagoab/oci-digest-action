@@ -23,6 +23,11 @@ const exec = util.promisify(require('child_process').exec);
 
 async function digestForImage(image, os, arch, variant) {
     let cmd = 'skopeo'
+
+    if (core.isDebug()) {
+        cmd += ' --debug'
+    }
+
     if (os) {
         cmd += ' --override-os=' + os;
     }
@@ -42,7 +47,8 @@ async function digestForImage(image, os, arch, variant) {
 
     try {
         const { stdout, stderr } = await exec(cmd)
-        core.debug(`skopeo result: ${stdout}`)
+        core.debug(`skopeo stdout result: ${stdout}`)
+        core.debug(`skopeo stderr result: ${stderr}`)
         return stdout.trim()
     } catch (e) {
         core.debug(`stderr: ${e.message}`)
