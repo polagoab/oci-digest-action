@@ -33,7 +33,7 @@ jobs:
       - name: Verify digest
         if: ${{ steps.digest.outputs.digest != steps.skopeo_digest.outputs.digest }}
         run: echo "Digest differ" && exit 1
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           repository: ./dist
           commit_message: Update distribution dir
