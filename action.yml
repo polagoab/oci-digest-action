@@ -21,5 +21,5 @@ outputs:
   image:
     description: "The given input image(or array of images). This output is for convenience when using the polagoab/oci-revision-tagger-action"
 runs:
-  using: "node16"
+  using: "node20"
   main: "dist/index.js"
