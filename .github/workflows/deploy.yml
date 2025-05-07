@@ -9,13 +9,18 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
       - name: Install
         run: npm ci
       - name: Test
@@ -33,7 +38,7 @@ jobs:
       - name: Verify digest
         if: ${{ steps.digest.outputs.digest != steps.skopeo_digest.outputs.digest }}
         run: echo "Digest differ" && exit 1
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403 # v5.2.0
         with:
           repository: ./dist
           commit_message: Update distribution dir
