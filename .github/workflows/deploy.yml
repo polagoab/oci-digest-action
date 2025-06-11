@@ -42,5 +42,4 @@ jobs:
         run: echo "Digest differ" && exit 1
       - uses: stefanzweifel/git-auto-commit-action@3cc016cfc892e0844046da36fc68da4e525e081f # v6.0.0
         with:
-          repository: ./dist
           commit_message: Update distribution dir
