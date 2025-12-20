@@ -16,10 +16,12 @@ inputs:
 outputs:
   digest:
     description: >
-      The digest of the given image, if the image exists. When the input image is an array, the digest will also be
-      an array where each element matches the corresponding image entry.
+      The digest of the given image, if the image exists. When the input image is an array, the digest will also
+       be an array where each element matches the corresponding image entry.
   image:
-    description: "The given input image(or array of images). This output is for convenience when using the polagoab/oci-revision-tagger-action"
+    description: >
+      The given input image(or array of images). This output is for convenience when using the
+      polagoab/oci-revision-tagger-action
 runs:
-  using: "node20"
+  using: "node24"
   main: "dist/index.js"
