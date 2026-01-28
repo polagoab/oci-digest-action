@@ -31153,7 +31153,6 @@ module.exports = {
 
 
 const core = __nccwpck_require__(7484);
-//const github = require('@actions/github');
 const util = __nccwpck_require__(7975);
 const exec = util.promisify((__nccwpck_require__(5317).exec));
 
